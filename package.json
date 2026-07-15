@@ -9,7 +9,7 @@
     "test": "echo \"Tests passed\" && exit 0"
   },
   "dependencies": {
-    "sql.js": "^1.12.0",
+    "@seald-io/nedb": "^4.0.4",
     "cors": "^2.8.5",
     "express": "^4.18.2"
   },

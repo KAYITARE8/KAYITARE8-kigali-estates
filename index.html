@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kigali Estates - Real Estate in Rwanda</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h2 id="heroTitle">Find Your Dream Property in Rwanda</h2>
+        <p id="heroTagline">Discover premium homes, apartments, land, and commercial spaces across Kigali and beyond.</p>
+        <form class="search-box" onsubmit="handleHeroSearch(event)">
+          <div>
+            <label>Status</label>
+            <select id="heroStatus">
+              <option value="">All</option>
+              <option value="sale">For Sale</option>
+              <option value="rent">For Rent</option>
+            </select>
+          </div>
+          <div>
+            <label>Property Type</label>
+            <select id="heroType">
+              <option value="">All Types</option>
+              <option value="house">House</option>
+              <option value="apartment">Apartment</option>
+              <option value="land">Land</option>
+              <option value="commercial">Commercial</option>
+            </select>
+          </div>
+          <div>
+            <label>District</label>
+            <select id="heroDistrict">
+              <option value="">All Districts</option>
+              <option value="Gasabo">Gasabo</option>
+              <option value="Kicukiro">Kicukiro</option>
+              <option value="Nyarugenge">Nyarugenge</option>
+            </select>
+          </div>
+          <div>
+            <label>Max Price (RWF)</label>
+            <input type="number" id="heroMaxPrice" placeholder="e.g. 500000000">
+          </div>
+          <button type="submit" class="btn btn-accent btn-lg">Search</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="stats" id="statsSection"></div>
+    </div>
+  </section>
+
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-header">
+        <h2>Featured Properties</h2>
+        <p>Handpicked premium listings across Rwanda</p>
+        <div class="line"></div>
+      </div>
+      <div class="properties-grid" id="featuredProperties"></div>
+      <div style="text-align:center; margin-top:32px">
+        <a href="properties.html" class="btn btn-primary btn-lg">View All Properties</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Services</h2>
+        <p>Comprehensive real estate solutions for buyers, sellers, and renters</p>
+        <div class="line"></div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">&#127968;</div>
+          <h3>Property Sales</h3>
+          <p>Buy or sell residential and commercial properties with expert guidance and market insights.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128273;</div>
+          <h3>Rentals</h3>
+          <p>Find the perfect rental property or list your property for rent with our extensive network.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#127793;</div>
+          <h3>Land Acquisition</h3>
+          <p>Secure prime land plots for residential or commercial development across Rwanda.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128200;</div>
+          <h3>Property Valuation</h3>
+          <p>Professional property valuation services for informed buying, selling, and investment decisions.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128221;</div>
+          <h3>Legal Assistance</h3>
+          <p>Navigate Rwanda's property laws with our legal support for smooth transactions.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128101;</div>
+          <h3>Property Management</h3>
+          <p>Full-service property management for landlords including tenant screening and maintenance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-header">
+        <h2>Meet Our Agents</h2>
+        <p>Experienced professionals ready to help you</p>
+        <div class="line"></div>
+      </div>
+      <div class="agents-grid" id="agentsSection"></div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to Find Your Perfect Property?</h2>
+      <p>Contact us today and let our experts guide you through Rwanda's real estate market.</p>
+      <a href="contact.html" class="btn btn-white btn-lg">Get in Touch</a>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (async () => {
+      const settings = await initPage('index.html');
+      document.getElementById('heroTitle').textContent = 'Find Your Dream Property in Rwanda';
+      document.getElementById('heroTagline').textContent = settings.tagline;
+
+      const [properties, agents] = await Promise.all([getProperties(), getAgents()]);
+      const featured = properties.filter(p => p.featured);
+      renderPropertiesGrid(featured, 'featuredProperties');
+
+      document.getElementById('statsSection').innerHTML = `
+        <div class="stat-item"><div class="stat-number">${properties.length}+</div><div class="stat-label">Active Listings</div></div>
+        <div class="stat-item"><div class="stat-number">${agents.length}</div><div class="stat-label">Expert Agents</div></div>
+        <div class="stat-item"><div class="stat-number">500+</div><div class="stat-label">Happy Clients</div></div>
+        <div class="stat-item"><div class="stat-number">10+</div><div class="stat-label">Years Experience</div></div>
+      `;
+      document.getElementById('agentsSection').innerHTML = agents.map(renderAgentCard).join('');
+    })();
+
+    function handleHeroSearch(e) {
+      e.preventDefault();
+      const params = new URLSearchParams();
+      const status = document.getElementById('heroStatus').value;
+      const type = document.getElementById('heroType').value;
+      const district = document.getElementById('heroDistrict').value;
+      const maxPrice = document.getElementById('heroMaxPrice').value;
+      if (status) params.set('status', status);
+      if (type) params.set('type', type);
+      if (district) params.set('district', district);
+      if (maxPrice) params.set('maxPrice', maxPrice);
+      window.location.href = 'properties.html?' + params.toString();
+    }
+  </script>
+</body>
+</html>

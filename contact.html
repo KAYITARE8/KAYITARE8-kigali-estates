@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Kigali Estates</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>Contact Us</h1>
+      <p>Get in touch with our team we are here to help</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <h2 style="font-size:24px; margin-bottom:24px">Send Us a Message</h2>
+        <div id="formAlert"></div>
+        <form onsubmit="handleContactSubmit(event)">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" name="name" required>
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label>Phone *</label>
+            <input type="tel" name="phone" required placeholder="+250...">
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select name="subject">
+              <option value="General Inquiry">General Inquiry</option>
+              <option value="Buy Property">I Want to Buy</option>
+              <option value="Sell Property">I Want to Sell</option>
+              <option value="Rent Property">I Want to Rent</option>
+              <option value="Property Management">Property Management</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message *</label>
+            <textarea name="message" required placeholder="Tell us how we can help you..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+        </form>
+      </div>
+      <div>
+        <h2 style="font-size:24px; margin-bottom:24px">Contact Information</h2>
+        <div class="contact-info-card">
+          <h3>&#128222; Phone</h3>
+          <p id="contactPhone"></p>
+        </div>
+        <div class="contact-info-card">
+          <h3>&#9993; Email</h3>
+          <p id="contactEmail"></p>
+        </div>
+        <div class="contact-info-card">
+          <h3>&#128205; Office Address</h3>
+          <p id="contactAddress"></p>
+        </div>
+        <div class="contact-info-card">
+          <h3>&#128337; Business Hours</h3>
+          <p>
+            Monday - Friday: 8:00 AM - 6:00 PM<br>
+            Saturday: 9:00 AM - 2:00 PM<br>
+            Sunday: Closed
+          </p>
+        </div>
+        <div class="contact-info-card">
+          <h3>&#128241; WhatsApp</h3>
+          <p id="contactWhatsapp"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (async () => {
+      const settings = await initPage('contact.html');
+      document.getElementById('contactPhone').textContent = settings.phone;
+      document.getElementById('contactEmail').textContent = settings.email;
+      document.getElementById('contactAddress').textContent = settings.address;
+      document.getElementById('contactWhatsapp').textContent = settings.whatsapp;
+    })();
+  </script>
+</body>
+</html>

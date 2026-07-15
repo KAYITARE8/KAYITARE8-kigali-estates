@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Kigali Estates</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="login-page">
+    <div class="login-card">
+      <div class="logo">
+        <div class="logo-icon">KE</div>
+        <h1>Kigali Estates</h1>
+        <p class="subtitle">Admin Panel</p>
+      </div>
+
+      <div id="loginAlert"></div>
+
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="username" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+      </form>
+
+      <p class="login-hint">Default login: <code>admin</code> / <code>admin123</code></p>
+      <a href="index.html" class="back-link">&larr; Back to Website</a>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script>
+    (async () => {
+      if (isLoggedIn()) window.location.href = 'admin.html';
+    })();
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const ok = await login(username, password);
+      if (ok) {
+        window.location.href = 'admin.html';
+      } else {
+        document.getElementById('loginAlert').innerHTML = '<div class="alert alert-error">Invalid username or password.</div>';
+      }
+    }
+  </script>
+</body>
+</html>

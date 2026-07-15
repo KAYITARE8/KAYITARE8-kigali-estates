@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Kigali Estates</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Kigali Estates</h2>
+        <span>Admin Panel</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" data-section="dashboard" class="active" onclick="showSection('dashboard'); return false;">Dashboard</a>
+        <a href="#" data-section="properties" onclick="showSection('properties'); return false;"> Properties</a>
+        <a href="#" data-section="agents" onclick="showSection('agents'); return false;">Agents</a>
+        <a href="#" data-section="inquiries" onclick="showSection('inquiries'); return false;"> Inquiries <span class="badge" id="inquiryBadge" style="display:none">0</span></a>
+        <a href="#" data-section="settings" onclick="showSection('settings'); return false;">Settings</a>
+      </nav>
+      <div class="sidebar-footer">
+        crafted by Kaii.<br>
+        © 2026
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="top-bar">
+        <h1 id="pageTitle">Dashboard</h1>
+        <div class="user-info">
+          <div class="user-dropdown">
+            <button type="button" class="user-avatar user-avatar-btn" id="adminAvatar" onclick="toggleUserMenu(event)">👤</button>
+            <div class="user-dropdown-menu" id="userDropdownMenu">
+              <div class="dropdown-header">
+                <div class="dropdown-name" id="adminUserName">Admin</div>
+                <div class="dropdown-role">Administrator</div>
+              </div>
+              <a href="index.html" target="_blank" class="dropdown-item">View Website</a>
+              <a href="#" onclick="handleLogout(); return false;" class="dropdown-item dropdown-logout">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <div id="adminAlert"></div>
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="panel-section active">
+          <div class="dashboard-cards">
+            <div class="dash-card primary">
+              <div class="label">Total Properties</div>
+              <div class="value" id="dashProperties">0</div>
+            </div>
+            <div class="dash-card">
+              <div class="label">Agents</div>
+              <div class="value" id="dashAgents">0</div>
+            </div>
+            <div class="dash-card accent">
+              <div class="label">Total Inquiries</div>
+              <div class="value" id="dashInquiries">0</div>
+            </div>
+            <div class="dash-card">
+              <div class="label">Unread Inquiries</div>
+              <div class="value" id="dashUnread">0</div>
+            </div>
+          </div>
+
+          <div class="data-table-wrapper" style="margin-bottom:24px">
+            <div class="table-header">
+              <h2>Recent Properties</h2>
+
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Title</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Location</th>
+                </tr>
+              </thead>
+              <tbody id="recentProperties"></tbody>
+            </table>
+          </div>
+
+          <div class="data-table-wrapper">
+            <div class="table-header">
+              <h2>Recent Inquiries</h2>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Property</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recentInquiries"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Properties -->
+        <section id="properties" class="panel-section">
+          <div class="data-table-wrapper">
+            <div class="table-header">
+              <h2>All Properties</h2>
+              <button class="btn btn-primary btn-sm" onclick="openPropertyModal()">+ Add Property</button>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Price</th>
+                  <th>Location</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="propertiesTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Agents -->
+        <section id="agents" class="panel-section">
+          <div class="data-table-wrapper">
+            <div class="table-header">
+              <h2>All Agents</h2>
+              <button class="btn btn-primary btn-sm" onclick="openAgentModal()">+ Add Agent</button>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Role</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="agentsTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Inquiries -->
+        <section id="inquiries" class="panel-section">
+          <div class="data-table-wrapper">
+            <div class="table-header">
+              <h2>Customer Inquiries</h2>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Contact</th>
+                  <th>Property</th>
+                  <th>Message</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inquiriesTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Settings -->
+        <section id="settings" class="panel-section">
+          <div class="settings-section">
+            <h2>Company Settings</h2>
+            <form onsubmit="saveSettingsForm(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Company Name</label>
+                  <input type="text" id="setCompanyName" required>
+                </div>
+                <div class="form-group">
+                  <label>Tagline</label>
+                  <input type="text" id="setTagline">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Phone</label>
+                  <input type="text" id="setPhone">
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" id="setEmail">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" id="setAddress">
+                </div>
+                <div class="form-group">
+                  <label>WhatsApp</label>
+                  <input type="text" id="setWhatsapp">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>About Text</label>
+                <textarea id="setAbout" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Save Settings</button>
+            </form>
+          </div>
+
+          <div class="settings-section">
+            <h2>Admin Credentials</h2>
+            <form onsubmit="saveAdminCredentials(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Username</label>
+                  <input type="text" id="adminUsername" required>
+                </div>
+                <div class="form-group">
+                  <label>Display Name</label>
+                  <input type="text" id="adminName" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>New Password (leave blank to keep current)</label>
+                <input type="password" id="adminPassword" autocomplete="new-password">
+              </div>
+              <button type="submit" class="btn btn-primary">Update Credentials</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Property Modal -->
+  <div class="modal-overlay" id="propertyModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="propertyModalTitle">Add Property</h2>
+        <button class="modal-close" onclick="closeModal('propertyModal')">&times;</button>
+      </div>
+      <form onsubmit="saveProperty(event)">
+        <div class="modal-body">
+          <input type="hidden" id="propId">
+          <div class="form-group">
+            <label>Title *</label>
+            <input type="text" id="propTitle" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Type *</label>
+              <select id="propType" required>
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+                <option value="land">Land</option>
+                <option value="commercial">Commercial</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Status *</label>
+              <select id="propStatus" required>
+                <option value="sale">For Sale</option>
+                <option value="rent">For Rent</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Price (RWF) *</label>
+              <input type="number" id="propPrice" required min="0">
+            </div>
+            <div class="form-group">
+              <label>Area (m&sup2;) *</label>
+              <input type="number" id="propArea" required min="0">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Location *</label>
+              <input type="text" id="propLocation" required placeholder="e.g. Kacyiru, Kigali">
+            </div>
+            <div class="form-group">
+              <label>District *</label>
+              <select id="propDistrict" required></select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Bedrooms</label>
+              <input type="number" id="propBedrooms" min="0" value="0">
+            </div>
+            <div class="form-group">
+              <label>Bathrooms</label>
+              <input type="number" id="propBathrooms" min="0" value="0">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Image URL</label>
+            <input type="url" id="propImage" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label>Description *</label>
+            <textarea id="propDescription" required rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Features</label>
+            <div class="features-input">
+              <input type="text" id="featureInput" placeholder="e.g. Garden, Parking...">
+              <button type="button" class="btn btn-sm btn-outline" onclick="addFeatureTag()">Add</button>
+            </div>
+            <div class="features-tags" id="featuresTags"></div>
+          </div>
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="propFeatured">
+            <label for="propFeatured">Featured Property (shown on homepage)</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('propertyModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Property</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Agent Modal -->
+  <div class="modal-overlay" id="agentModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="agentModalTitle">Add Agent</h2>
+        <button class="modal-close" onclick="closeModal('agentModal')">&times;</button>
+      </div>
+      <form onsubmit="saveAgent(event)">
+        <div class="modal-body">
+          <input type="hidden" id="agentId">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="agentName" required>
+          </div>
+          <div class="form-group">
+            <label>Role *</label>
+            <input type="text" id="agentRole" required placeholder="e.g. Senior Agent">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone *</label>
+              <input type="text" id="agentPhone" required placeholder="+250...">
+            </div>
+            <div class="form-group">
+              <label>Email *</label>
+              <input type="email" id="agentEmail" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('agentModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Agent</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/admin.js"></script>
+  <script>initAdmin();</script>
+</body>
+</html>

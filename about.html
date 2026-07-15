@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Kigali Estates</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>About Us</h1>
+      <p>Your trusted partner in Rwanda's real estate market</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="about-content">
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80" alt="Kigali cityscape">
+      </div>
+      <div class="about-text">
+        <h2 id="aboutTitle">About Kigali Estates</h2>
+        <p id="aboutDesc1"></p>
+        <p>Founded with a vision to transform how Rwandans buy, sell, and rent properties, we have grown to become one of the most trusted names in the industry. Our team of licensed agents brings deep local knowledge and international standards of service.</p>
+        <p>Whether you are looking for a family home in Kacyiru, a commercial plot in Remera, or an affordable apartment in Gikondo, we have the expertise and listings to match your needs.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why Choose Us</h2>
+        <div class="line"></div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">&#127942;</div>
+          <h3>Local Expertise</h3>
+          <p>Deep knowledge of Rwanda's property market, regulations, and neighborhoods.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128170;</div>
+          <h3>Trusted Network</h3>
+          <p>Strong relationships with developers, landlords, and legal professionals.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128640;</div>
+          <h3>Fast Results</h3>
+          <p>Efficient processes to help you find or sell property quickly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Areas We Serve</h2>
+        <p>Covering major districts across Rwanda</p>
+        <div class="line"></div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Kigali City</h3>
+          <p>Gasabo, Kicukiro, Nyarugenge — covering all major neighborhoods including Kacyiru, Kimihurura, Nyarutarama, Remera, and Gikondo.</p>
+        </div>
+        <div class="service-card">
+          <h3>Northern Province</h3>
+          <p>Musanze and surrounding areas — ideal for tourism-related properties and agricultural land.</p>
+        </div>
+        <div class="service-card">
+          <h3>Southern & Western</h3>
+          <p>Huye, Rubavu, and other districts — expanding opportunities beyond the capital.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Team</h2>
+        <div class="line"></div>
+      </div>
+      <div class="agents-grid" id="agentsSection"></div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (async () => {
+      const settings = await initPage('about.html');
+      document.getElementById('aboutTitle').textContent = 'About ' + settings.companyName;
+      document.getElementById('aboutDesc1').textContent = settings.about;
+      const agents = await getAgents();
+      document.getElementById('agentsSection').innerHTML = agents.map(renderAgentCard).join('');
+    })();
+  </script>
+</body>
+</html>

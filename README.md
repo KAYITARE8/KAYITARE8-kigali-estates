@@ -8,7 +8,7 @@ A full-stack real estate web application for browsing, listing, and managing pro
 
 ## GitHub Repository
 
-🔗 [https://github.com/KAYITARE8/kigali-estates](https://github.com/KAYITARE8/kigali-estates)
+🔗 [https://github.com/KAYITARE8/-kigali-estates](https://github.com/KAYITARE8/-kigali-estates)
 
 ---
 

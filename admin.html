@@ -361,8 +361,15 @@
             </div>
           </div>
           <div class="form-group">
-            <label>Image URL</label>
-            <input type="url" id="propImage" placeholder="https://...">
+            <label>Property Image</label>
+            <div class="img-upload-wrap">
+              <input type="file" id="propImageFile" accept="image/*" onchange="previewPropImage(event)" style="display:none">
+              <input type="hidden" id="propImage">
+              <div class="img-preview-box" id="propImagePreview" onclick="document.getElementById('propImageFile').click()">
+                <span id="propImagePlaceholder">&#128247; Click to upload image</span>
+                <img id="propImageThumb" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:8px">
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label>Description *</label>

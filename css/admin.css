@@ -830,3 +830,27 @@ body {
   .analytics-grid { grid-template-columns: 1fr; }
   .profile-layout { grid-template-columns: 1fr; }
 }
+
+/* ── Property Image Upload ───────────────────────────────── */
+.img-preview-box {
+  width: 100%;
+  height: 160px;
+  border: 2px dashed #e2e8f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  background: var(--light-gray);
+}
+
+.img-preview-box:hover {
+  border-color: var(--primary);
+}
+
+#propImagePlaceholder {
+  color: var(--gray);
+  font-size: 14px;
+}

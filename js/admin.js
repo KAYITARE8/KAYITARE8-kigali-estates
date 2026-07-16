@@ -139,6 +139,30 @@ async function markRead(id) {
 function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
 function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
 
+function previewPropImage(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const MAX = 800;
+      const ratio = Math.min(MAX / img.width, MAX / img.height, 1);
+      canvas.width = img.width * ratio;
+      canvas.height = img.height * ratio;
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      const data = canvas.toDataURL('image/jpeg', 0.85);
+      document.getElementById('propImage').value = data;
+      document.getElementById('propImageThumb').src = data;
+      document.getElementById('propImageThumb').style.display = 'block';
+      document.getElementById('propImagePlaceholder').style.display = 'none';
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
 function openPropertyModal(property) {
   currentFeatures = property ? [...property.features] : [];
   document.getElementById('propertyModalTitle').textContent = property ? 'Edit Property' : 'Add Property';
@@ -155,6 +179,20 @@ function openPropertyModal(property) {
   document.getElementById('propImage').value = property ? property.image : '';
   document.getElementById('propDescription').value = property ? property.description : '';
   document.getElementById('propFeatured').checked = property ? property.featured : false;
+  document.getElementById('propImage').value = property ? property.image : '';
+  // show thumb if editing
+  const thumb = document.getElementById('propImageThumb');
+  const placeholder = document.getElementById('propImagePlaceholder');
+  if (property && property.image) {
+    thumb.src = property.image;
+    thumb.style.display = 'block';
+    placeholder.style.display = 'none';
+  } else {
+    thumb.src = '';
+    thumb.style.display = 'none';
+    placeholder.style.display = '';
+  }
+  document.getElementById('propImageFile').value = '';
   renderFeaturesTags();
   openModal('propertyModal');
 }

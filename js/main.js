@@ -6,6 +6,10 @@ function renderHeader(activePage, settings) {
     { href: 'contact.html', label: 'Contact' }
   ];
   const navLinks = pages.map(p => `<a href="${p.href}" class="${activePage === p.href ? 'active' : ''}">${p.label}</a>`).join('');
+  const user = typeof getUser === 'function' ? getUser() : null;
+  const authBtn = user
+    ? `<div class="user-pill">&#128100; ${user.name} <button onclick="userLogout();location.reload()" class="user-logout-btn">Sign Out</button></div>`
+    : `<button class="btn-login-header" onclick="document.getElementById('loginModal').classList.add('active')">&#128274; Login</button>`;
   return `
     <header class="header">
       <div class="container header-inner">
@@ -22,7 +26,7 @@ function renderHeader(activePage, settings) {
           &#128722;
           <span class="cart-badge" id="cartBadge" style="display:none">0</span>
         </a>
-        <button class="btn-login-header" onclick="document.getElementById('loginModal').classList.add('active')" title="Admin Login">&#128274; Login</button>
+        ${authBtn}
       </div>
     </header>`;
 }

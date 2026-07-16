@@ -132,6 +132,24 @@ seed().then(() => {
     res.json({ success: true });
   });
 
+  // ── User Auth ─────────────────────────────────────────────
+  app.post('/api/register', async (req, res) => {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) return res.status(400).json({ error: 'All fields required' });
+    const existing = await db.users.findOneAsync({ email });
+    if (existing) return res.status(409).json({ error: 'Email already registered' });
+    const hashed = await bcrypt.hash(password, 10);
+    const doc = await db.users.insertAsync({ _id: genId('u'), name, email, password: hashed, createdAt: new Date().toISOString() });
+    res.json({ success: true, id: doc._id, name: doc.name, email: doc.email });
+  });
+
+  app.post('/api/user/login', async (req, res) => {
+    const { email, password } = req.body;
+    const user = await db.users.findOneAsync({ email });
+    if (!user || !(await bcrypt.compare(password, user.password))) return res.status(401).json({ error: 'Invalid email or password' });
+    res.json({ success: true, id: user._id, name: user.name, email: user.email });
+  });
+
   // ── Auth ─────────────────────────────────────────────────────
   app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;

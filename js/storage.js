@@ -86,6 +86,36 @@ async function saveSettings(data) {
   return apiFetch('/api/settings', { method: 'PUT', body: JSON.stringify(data) });
 }
 
+// ── User Auth ────────────────────────────────────────────
+async function registerUser(name, email, password) {
+  try {
+    const data = await apiFetch('/api/register', { method: 'POST', body: JSON.stringify({ name, email, password }) });
+    sessionStorage.setItem('ke_user', JSON.stringify({ id: data.id, name: data.name, email: data.email }));
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
+}
+
+async function userLogin(email, password) {
+  try {
+    const data = await apiFetch('/api/user/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+    sessionStorage.setItem('ke_user', JSON.stringify({ id: data.id, name: data.name, email: data.email }));
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
+}
+
+function getUser() {
+  const s = sessionStorage.getItem('ke_user');
+  return s ? JSON.parse(s) : null;
+}
+
+function userLogout() {
+  sessionStorage.removeItem('ke_user');
+}
+
 // ── Auth ──────────────────────────────────────────────────────
 async function login(username, password) {
   try {

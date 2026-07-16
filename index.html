@@ -139,18 +139,23 @@
   <script src="js/cart.js"></script>
   <script src="js/main.js"></script>
 
-  <!-- Login Modal -->
+  <!-- Auth Modal -->
   <div class="modal-overlay" id="loginModal" onclick="if(event.target===this)this.classList.remove('active')">
     <div class="login-modal-card">
       <div class="login-modal-logo">
         <div class="login-modal-icon">KE</div>
-        <h2>Admin Login</h2>
+      </div>
+      <div class="lm-tabs">
+        <button class="lm-tab active" onclick="switchTab('signin')">Sign In</button>
+        <button class="lm-tab" onclick="switchTab('signup')">Sign Up</button>
       </div>
       <div id="loginModalAlert"></div>
-      <form onsubmit="handleModalLogin(event)">
+
+      <!-- Sign In -->
+      <form id="signinForm" onsubmit="handleModalLogin(event)">
         <div class="lm-group">
-          <label>Username</label>
-          <input type="text" id="lmUsername" required autocomplete="username">
+          <label>Email</label>
+          <input type="email" id="lmEmail" required autocomplete="email">
         </div>
         <div class="lm-group">
           <label>Password</label>
@@ -158,6 +163,24 @@
         </div>
         <button type="submit" class="lm-btn">Sign In</button>
       </form>
+
+      <!-- Sign Up -->
+      <form id="signupForm" style="display:none" onsubmit="handleModalRegister(event)">
+        <div class="lm-group">
+          <label>Full Name</label>
+          <input type="text" id="suName" required>
+        </div>
+        <div class="lm-group">
+          <label>Email</label>
+          <input type="email" id="suEmail" required autocomplete="email">
+        </div>
+        <div class="lm-group">
+          <label>Password</label>
+          <input type="password" id="suPassword" required minlength="6">
+        </div>
+        <button type="submit" class="lm-btn">Create Account</button>
+      </form>
+
       <button class="lm-close" onclick="document.getElementById('loginModal').classList.remove('active')">&times;</button>
     </div>
   </div>
@@ -198,15 +221,41 @@
       e.preventDefault();
       const alertEl = document.getElementById('loginModalAlert');
       alertEl.innerHTML = '';
-      const ok = await login(
-        document.getElementById('lmUsername').value,
+      const res = await userLogin(
+        document.getElementById('lmEmail').value,
         document.getElementById('lmPassword').value
       );
-      if (ok) {
-        window.location.href = 'admin.html';
+      if (res.ok) {
+        document.getElementById('loginModal').classList.remove('active');
+        location.reload();
       } else {
-        alertEl.innerHTML = '<div class="lm-error">Invalid username or password.</div>';
+        alertEl.innerHTML = `<div class="lm-error">${res.error || 'Invalid email or password.'}</div>`;
       }
+    }
+
+    async function handleModalRegister(e) {
+      e.preventDefault();
+      const alertEl = document.getElementById('loginModalAlert');
+      alertEl.innerHTML = '';
+      const res = await registerUser(
+        document.getElementById('suName').value,
+        document.getElementById('suEmail').value,
+        document.getElementById('suPassword').value
+      );
+      if (res.ok) {
+        document.getElementById('loginModal').classList.remove('active');
+        location.reload();
+      } else {
+        const msg = res.error.includes('409') || res.error.includes('already') ? 'Email already registered.' : 'Registration failed.';
+        alertEl.innerHTML = `<div class="lm-error">${msg}</div>`;
+      }
+    }
+
+    function switchTab(tab) {
+      document.getElementById('signinForm').style.display = tab === 'signin' ? '' : 'none';
+      document.getElementById('signupForm').style.display = tab === 'signup' ? '' : 'none';
+      document.getElementById('loginModalAlert').innerHTML = '';
+      document.querySelectorAll('.lm-tab').forEach((t, i) => t.classList.toggle('active', (i === 0) === (tab === 'signin')));
     }
   </script>
 </body>

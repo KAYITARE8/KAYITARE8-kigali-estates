@@ -10,6 +10,7 @@ const db = {
   settings:   new Datastore({ filename: path.join(dataDir, 'settings.db'),   autoload: true }),
   admin:      new Datastore({ filename: path.join(dataDir, 'admin.db'),       autoload: true }),
   orders:     new Datastore({ filename: path.join(dataDir, 'orders.db'),      autoload: true }),
+  users:      new Datastore({ filename: path.join(dataDir, 'users.db'),       autoload: true }),
 };
 
 async function seed() {

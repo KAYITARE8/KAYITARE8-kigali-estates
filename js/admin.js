@@ -25,13 +25,14 @@ function showSection(sectionId) {
   if (section) section.classList.add('active');
   const navLink = document.querySelector(`[data-section="${sectionId}"]`);
   if (navLink) navLink.classList.add('active');
-  const titles = { dashboard: 'Dashboard', properties: 'Manage Properties', agents: 'Manage Agents', inquiries: 'Inquiries', users: 'Registered Users', analytics: 'Analytics', settings: 'Settings', profile: 'My Profile' };
+  const titles = { dashboard: 'Dashboard', properties: 'Manage Properties', agents: 'Manage Agents', inquiries: 'Inquiries', done: 'Done Inquiries', users: 'Registered Users', analytics: 'Analytics', settings: 'Settings', profile: 'My Profile' };
   const titleEl = document.getElementById('pageTitle');
   if (titleEl) titleEl.textContent = titles[sectionId] || 'Admin';
   if (sectionId === 'dashboard') renderDashboard();
   if (sectionId === 'properties') renderPropertiesTable();
   if (sectionId === 'agents') renderAgentsTable();
   if (sectionId === 'inquiries') renderInquiriesTable();
+  if (sectionId === 'done') renderDoneTable();
   if (sectionId === 'settings') loadSettingsForm();
   if (sectionId === 'users') renderUsersTable();
   if (sectionId === 'analytics') renderAnalytics();
@@ -109,7 +110,8 @@ async function renderAgentsTable() {
 }
 
 async function renderInquiriesTable() {
-  const inquiries = await getInquiries();
+  const all = await getInquiries();
+  const inquiries = all.filter(i => !i.is_done);
   document.getElementById('inquiriesTable').innerHTML = inquiries.length === 0
     ? '<tr><td colspan="6" class="empty-table">No inquiries received yet.</td></tr>'
     : inquiries.map(i => `
@@ -121,13 +123,38 @@ async function renderInquiriesTable() {
         <td>${new Date(i.date).toLocaleString()}</td>
         <td class="actions">
           ${!i.read ? `<button class="btn btn-sm btn-outline" onclick="markRead('${i.id}')">Mark Read</button>` : ''}
-          <button class="btn btn-sm btn-danger" onclick="confirmDeleteInquiry('${i.id}')">Delete</button>
+          <button class="btn btn-sm btn-primary" onclick="markDone('${i.id}')">Done</button>
         </td>
       </tr>`).join('');
 
   const unread = inquiries.filter(i => !i.read).length;
   const badge = document.getElementById('inquiryBadge');
   if (badge) { badge.textContent = unread; badge.style.display = unread > 0 ? 'inline' : 'none'; }
+}
+
+async function markDone(id) {
+  await markInquiryDone(id);
+  renderInquiriesTable();
+  renderDashboard();
+  showAlert('Inquiry marked as done!', 'success');
+}
+
+async function renderDoneTable() {
+  const inquiries = await getInquiries();
+  const done = inquiries.filter(i => i.is_done);
+  document.getElementById('doneTable').innerHTML = done.length === 0
+    ? '<tr><td colspan="6" class="empty-table">No done inquiries yet.</td></tr>'
+    : done.map(i => `
+      <tr>
+        <td>${i.name}</td>
+        <td>${i.email}<br><small>${i.phone}</small></td>
+        <td>${i.propertyTitle || i.property_title || 'General'}</td>
+        <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${i.message}</td>
+        <td>${new Date(i.date).toLocaleString()}</td>
+        <td class="actions">
+          <button class="btn btn-sm btn-danger" onclick="confirmDeleteInquiry('${i.id}')">Done</button>
+        </td>
+      </tr>`).join('');
 }
 
 async function markRead(id) {

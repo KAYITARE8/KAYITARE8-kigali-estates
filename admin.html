@@ -19,6 +19,7 @@
         <a href="#" data-section="agents" onclick="showSection('agents'); return false;">&#128119; Agents</a>
         <a href="#" data-section="inquiries" onclick="showSection('inquiries'); return false;">&#128140; Inquiries <span class="badge" id="inquiryBadge" style="display:none">0</span></a>
         <a href="#" data-section="users" onclick="showSection('users'); return false;">&#128101; Users</a>
+        <a href="#" data-section="done" onclick="showSection('done'); return false;">&#10003; Done</a>
         <a href="#" data-section="analytics" onclick="showSection('analytics'); return false;">&#128200; Analytics</a>
         <a href="#" data-section="settings" onclick="showSection('settings'); return false;">&#9881; Settings</a>
         <a href="#" data-section="profile" onclick="showSection('profile'); return false;">&#128100; Profile</a>
@@ -186,6 +187,28 @@
             <table class="data-table">
               <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Joined</th><th>Actions</th></tr></thead>
               <tbody id="usersTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Done Inquiries -->
+        <section id="done" class="panel-section">
+          <div class="data-table-wrapper">
+            <div class="table-header">
+              <h2>Done Inquiries</h2>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Contact</th>
+                  <th>Property</th>
+                  <th>Message</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="doneTable"></tbody>
             </table>
           </div>
         </section>
@@ -433,8 +456,8 @@
     </div>
   </div>
 
-  <script src="js/storage.js"></script>
-  <script src="js/admin.js"></script>
+  <script src="js/storage.js?v=2"></script>
+  <script src="js/admin.js?v=2"></script>
   <script>initAdmin();</script>
 </body>
 </html>

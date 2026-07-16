@@ -69,6 +69,10 @@ async function addInquiry(data) {
   return apiFetch('/api/inquiries', { method: 'POST', body: JSON.stringify(data) });
 }
 
+async function markInquiryDone(id) {
+  return apiFetch('/api/inquiries/' + id + '/done', { method: 'PUT' });
+}
+
 async function markInquiryRead(id) {
   return apiFetch('/api/inquiries/' + id + '/read', { method: 'PUT' });
 }

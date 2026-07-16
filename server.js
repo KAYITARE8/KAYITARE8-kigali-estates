@@ -89,6 +89,11 @@ seed().then(() => {
     res.json({ success: true });
   });
 
+  app.put('/api/inquiries/:id/done', async (req, res) => {
+    await db.inquiries.updateAsync({ _id: req.params.id }, { $set: { is_done: true } });
+    res.json({ success: true });
+  });
+
   app.delete('/api/inquiries/:id', async (req, res) => {
     await db.inquiries.removeAsync({ _id: req.params.id });
     res.json({ success: true });

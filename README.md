@@ -21,6 +21,7 @@ A full-stack real estate e-commerce web application for browsing, listing, and m
 - Full checkout process with order confirmation
 - User registration and login (bcrypt hashed passwords)
 - Admin panel to manage properties, agents, inquiries, orders, users, and settings
+- Inquiry workflow: mark as read → mark as done → moves to Done page → permanently delete
 - Analytics dashboard with real-time stats and bar charts
 - Admin profile management with photo upload
 - NeDB database (persistent, pure JS — no native compilation required)
@@ -87,7 +88,7 @@ NeDB stores data in flat files under `data/`. Collections:
 
 - **properties.db** — id, title, type, status, price, currency, location, district, bedrooms, bathrooms, area, description, features, image, featured, createdAt
 - **agents.db** — id, name, role, phone, email, photo
-- **inquiries.db** — id, name, email, phone, message, propertyTitle, is_read, date
+- **inquiries.db** — id, name, email, phone, message, propertyTitle, is_read, is_done, date
 - **orders.db** — id, customer{firstName,lastName,email,phone,address,district}, items, total, paymentMethod, notes, status, createdAt
 - **users.db** — id, name, email, password(hashed), createdAt
 - **settings.db** — companyName, tagline, phone, email, address, whatsapp, about
@@ -111,7 +112,8 @@ NeDB stores data in flat files under `data/`. Collections:
 | GET | /api/inquiries | List all inquiries |
 | POST | /api/inquiries | Submit inquiry |
 | PUT | /api/inquiries/:id/read | Mark inquiry as read |
-| DELETE | /api/inquiries/:id | Delete inquiry |
+| PUT | /api/inquiries/:id/done | Mark inquiry as done (moves to Done page) |
+| DELETE | /api/inquiries/:id | Delete inquiry permanently |
 | GET | /api/settings | Get site settings |
 | PUT | /api/settings | Update settings |
 | POST | /api/register | Register new user |
@@ -125,6 +127,34 @@ NeDB stores data in flat files under `data/`. Collections:
 | POST | /api/orders | Place order |
 | PUT | /api/orders/:id/status | Update order status |
 | DELETE | /api/orders/:id | Delete order |
+
+---
+
+## Admin Panel
+
+- URL: `/admin-login.html` or use the 🔒 Login button on the homepage
+- Default credentials set during first run via `db.js` seed
+
+### Sections
+
+| Section | Description |
+|---|---|
+| Dashboard | Overview stats, recent properties and inquiries |
+| Properties | Add, edit, delete, and feature properties |
+| Agents | Manage real estate agents |
+| Inquiries | View and handle incoming customer inquiries |
+| Users | View and remove registered user accounts |
+| Done | Archive of handled inquiries — click Done to permanently remove |
+| Analytics | Bar charts for properties by type/status, inquiries by month, orders by status |
+| Settings | Update company info, contact details, and admin credentials |
+| Profile | Update admin name, email, password, and photo |
+
+### Inquiry Workflow
+
+1. Customer submits inquiry → appears in **Inquiries** section (bold = unread)
+2. Admin clicks **Mark Read** → removes bold styling
+3. Admin clicks **Done** → inquiry moves to the **Done** section
+4. In Done section, admin clicks **Done** button → permanently deletes the inquiry
 
 ---
 
@@ -144,13 +174,6 @@ Open [http://localhost:3000](http://localhost:3000)
 docker-compose up --build
 ```
 Open [http://localhost:3000](http://localhost:3000)
-
----
-
-## Admin Panel
-
-- URL: `/admin-login.html` or use the 🔒 Login button on the homepage
-- Sections: Dashboard, Properties, Agents, Inquiries, Users, Analytics, Settings, Profile
 
 ---
 

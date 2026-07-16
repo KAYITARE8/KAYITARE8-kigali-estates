@@ -226,6 +226,33 @@ docker-compose up --build
 
 ---
 
+## Changelog
+
+All changes are automatically deployed via the CI/CD pipeline on every push to `main`.
+
+| Run | Commit | Description |
+|---|---|---|
+| #18 | `ae59e6b` | Update README with accurate project info, remove stray image files |
+| #17 | `f90a1e4` | Stats section: use real DB counts for all 4 figures |
+| #16 | `d5ec637` | Fix order inquiry: read from nested customer object |
+| #15 | `dcb8a5e` | Auto-create inquiry from every order for admin visibility |
+| #14 | `3d4df63` | Fix inquiries not showing: normalize propertyTitle field name |
+| #13 | `2282942` | Fix: auto-login after signup, add render.yaml persistent disk for NeDB |
+| #12 | `a0cf95d` | Remove login credentials hint from admin login page |
+| #11 | `ab616b7` | Replace property image URL field with file upload |
+| #10 | `f99f13d` | Fix profile photo save: increase body limit to 5mb, resize image before upload |
+| #9 | `1d24b69` | Add Users, Analytics, Profile sections to admin panel |
+| #8 | `cd6771d` | Fix login: use email key consistently across all auth flows |
+| #7 | `65464b9` | Unified login: admin redirects to dashboard, users stay on site |
+| #6 | `a6c6762` | Update admin credentials to email login |
+| #5 | `7c931a8` | Add customer sign up/in modal, remove admin title from modal |
+| #4 | `a5df8f3` | Add login modal to homepage, bcrypt password hashing |
+| #3 | `4105f42` | Add shopping cart, checkout, and order confirmation |
+| #2 | `dfa0557` | Force Node.js runtime for Render |
+| #1 | `50eaeb3` | Fix README repo URL |
+
+---
+
 ## Author
 
 Developed as a final project for **EWA408510 – E-Commerce and Web Application**

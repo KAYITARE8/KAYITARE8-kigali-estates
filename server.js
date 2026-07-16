@@ -132,7 +132,7 @@ seed().then(() => {
     res.json({ success: true });
   });
 
-  // ── User Auth ─────────────────────────────────────────────
+  // ── Auth ─────────────────────────────────────────────────────
   app.post('/api/register', async (req, res) => {
     const { name, email, password } = req.body;
     if (!name || !email || !password) return res.status(400).json({ error: 'All fields required' });
@@ -143,19 +143,19 @@ seed().then(() => {
     res.json({ success: true, id: doc._id, name: doc.name, email: doc.email });
   });
 
-  app.post('/api/user/login', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await db.users.findOneAsync({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) return res.status(401).json({ error: 'Invalid email or password' });
-    res.json({ success: true, id: user._id, name: user.name, email: user.email });
-  });
-
-  // ── Auth ─────────────────────────────────────────────────────
   app.post('/api/login', async (req, res) => {
-    const { username, password } = req.body;
-    const admin = await db.admin.findOneAsync({ username });
-    if (!admin || !(await bcrypt.compare(password, admin.password))) return res.status(401).json({ error: 'Invalid credentials' });
-    res.json({ success: true, name: admin.name, username: admin.username });
+    const { email, password } = req.body;
+    // Check admin first
+    const admin = await db.admin.findOneAsync({ username: email });
+    if (admin && (await bcrypt.compare(password, admin.password))) {
+      return res.json({ success: true, role: 'admin', name: admin.name, username: admin.username });
+    }
+    // Check regular users
+    const user = await db.users.findOneAsync({ email });
+    if (user && (await bcrypt.compare(password, user.password))) {
+      return res.json({ success: true, role: 'user', id: user._id, name: user.name, email: user.email });
+    }
+    res.status(401).json({ error: 'Invalid email or password' });
   });
 
   app.put('/api/admin', async (req, res) => {

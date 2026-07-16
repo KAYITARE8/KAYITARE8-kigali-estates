@@ -99,9 +99,13 @@ async function registerUser(name, email, password) {
 
 async function userLogin(email, password) {
   try {
-    const data = await apiFetch('/api/user/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+    const data = await apiFetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+    if (data.role === 'admin') {
+      sessionStorage.setItem('ke_session', JSON.stringify({ username: data.username, name: data.name, loginTime: Date.now() }));
+      return { ok: true, role: 'admin' };
+    }
     sessionStorage.setItem('ke_user', JSON.stringify({ id: data.id, name: data.name, email: data.email }));
-    return { ok: true };
+    return { ok: true, role: 'user' };
   } catch (e) {
     return { ok: false, error: e.message };
   }

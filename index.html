@@ -227,9 +227,13 @@
       );
       if (res.ok) {
         document.getElementById('loginModal').classList.remove('active');
-        location.reload();
+        if (res.role === 'admin') {
+          window.location.href = 'admin.html';
+        } else {
+          location.reload();
+        }
       } else {
-        alertEl.innerHTML = `<div class="lm-error">${res.error || 'Invalid email or password.'}</div>`;
+        alertEl.innerHTML = `<div class="lm-error">Invalid email or password.</div>`;
       }
     }
 

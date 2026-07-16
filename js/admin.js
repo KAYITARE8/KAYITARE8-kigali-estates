@@ -66,7 +66,7 @@ async function renderDashboard() {
     : inquiries.slice(0, 5).map(i => `
       <tr>
         <td>${i.name}</td>
-        <td>${i.property_title || 'General'}</td>
+        <td>${i.propertyTitle || i.property_title || 'General'}</td>
         <td>${new Date(i.date).toLocaleDateString()}</td>
         <td><span class="status-badge ${i.read ? 'status-read' : 'status-unread'}">${i.read ? 'Read' : 'New'}</span></td>
       </tr>`).join('');
@@ -116,7 +116,7 @@ async function renderInquiriesTable() {
       <tr style="${!i.read ? 'font-weight:600' : ''}">
         <td>${i.name}</td>
         <td>${i.email}<br><small>${i.phone}</small></td>
-        <td>${i.property_title || 'General'}</td>
+        <td>${i.propertyTitle || i.property_title || 'General'}</td>
         <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${i.message}</td>
         <td>${new Date(i.date).toLocaleString()}</td>
         <td class="actions">

@@ -75,7 +75,7 @@ seed().then(() => {
   // ── Inquiries ────────────────────────────────────────────────
   app.get('/api/inquiries', async (req, res) => {
     const docs = await db.inquiries.findAsync({}).sort({ date: -1 });
-    res.json(docs.map(d => ({ ...d, id: d._id, read: d.is_read || false })));
+    res.json(docs.map(d => ({ ...d, id: d._id, read: d.is_read || false, property_title: d.propertyTitle || d.property_title || 'General Inquiry' })));
   });
 
   app.post('/api/inquiries', async (req, res) => {

@@ -12,6 +12,34 @@ A full-stack real estate e-commerce web application for browsing, listing, and m
 
 ---
 
+## Screenshots
+
+### Homepage
+![Homepage](screeshshots/indexpage.png)
+
+### Properties
+![Properties](screeshshots/properties.png)
+
+### About
+![About](screeshshots/about.png)
+
+### Contact
+![Contact](screeshshots/contact.png)
+
+### Admin Dashboard
+![Admin Dashboard](screeshshots/admin%20dash.png)
+
+### Inquiries
+![Inquiries](screeshshots/inquiries.png)
+
+### Users
+![Users](screeshshots/users.png)
+
+### Analytics
+![Analytics](screeshshots/analytics.png)
+
+---
+
 ## Features
 
 - Browse properties for sale and rent across Rwanda

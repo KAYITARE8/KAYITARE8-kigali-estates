@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kigali Estates – Tools & Technologies</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 13px;
+      color: #1e293b;
+      background: #fff;
+      padding: 60px 80px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .cover {
+      text-align: center;
+      padding: 60px 0 40px;
+      border-bottom: 3px solid #1a5f4a;
+      margin-bottom: 40px;
+    }
+    .cover .logo {
+      width: 70px; height: 70px;
+      background: #1a5f4a;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .cover h1 { font-size: 26px; color: #1a5f4a; margin-bottom: 8px; }
+    .cover h2 { font-size: 16px; font-weight: 400; color: #64748b; margin-bottom: 20px; }
+    .cover .meta { font-size: 12px; color: #94a3b8; line-height: 1.8; }
+    .cover .meta strong { color: #1e293b; }
+
+    h2.section-title {
+      font-size: 15px;
+      color: #1a5f4a;
+      border-left: 4px solid #1a5f4a;
+      padding-left: 12px;
+      margin: 36px 0 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tool-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+    .tool-card .tool-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .tool-badge {
+      background: #1a5f4a;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .tool-badge.blue { background: #2563eb; }
+    .tool-badge.orange { background: #d97706; }
+    .tool-badge.red { background: #dc2626; }
+    .tool-badge.purple { background: #7c3aed; }
+    .tool-badge.gray { background: #475569; }
+
+    .tool-name { font-size: 15px; font-weight: 700; color: #1e293b; }
+    .tool-desc { font-size: 13px; color: #475569; line-height: 1.7; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+    th {
+      background: #1a5f4a;
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: #f8fafc; }
+
+    .footer {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 2px solid #e2e8f0;
+      text-align: center;
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.8;
+    }
+
+    @media print {
+      body { padding: 20px 40px; }
+      .no-print { display: none; }
+    }
+
+    .print-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #1a5f4a;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .print-btn:hover { background: #134a3a; }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn no-print" onclick="window.print()">⬇ Save as PDF</button>
+
+  <!-- Cover -->
+  <div class="cover">
+    <div class="logo">KE</div>
+    <h1>Kigali Estates</h1>
+    <h2>Tools & Technologies Used — Full Explanation</h2>
+    <div class="meta">
+      <strong>Course:</strong> EWA408510 – E-Commerce and Web Application<br>
+      <strong>Institution:</strong> UNILAK – Faculty of Computing and Information Sciences<br>
+      <strong>Academic Year:</strong> 2025–2026<br>
+      <strong>Live URL:</strong> https://kigali-estates.onrender.com<br>
+      <strong>GitHub:</strong> https://github.com/KAYITARE8/-kigali-estates
+    </div>
+  </div>
+
+  <!-- Frontend -->
+  <h2 class="section-title">1. Frontend Technologies</h2>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-badge blue">Frontend</span>
+      <span class="tool-name">HTML5 (HyperText Markup Language)</span>
+    </div>
+    <div class="tool-desc">
+      HTML5 is the standard markup language used to build the structure of every page in the application.
+      It defines what appears on screen using elements such as headings, paragraphs, forms, tables, buttons,
+      and links. In Kigali Estates, HTML5 is used across all pages including <em>index.html</em> (homepage),
+      <em>properties.html</em> (listings), <em>cart.html</em> (shopping cart), <em>checkout.html</em>,
+      <em>confirmation.html</em>, and <em>admin.html</em> (admin dashboard). Each page is a standalone
+      HTML file served directly by the Express.js backend.
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-badge blue">Frontend</span>
+      <span class="tool-name">CSS3 (Cascading Style Sheets)</span>
+    </div>
+    <div class="tool-desc">
+      CSS3 handles all visual styling of the application — colors, fonts, spacing, layout, animations,
+      and responsive design. The project uses two CSS files: <em>style.css</em> for the public-facing
+      website and <em>admin.css</em> for the admin panel. CSS variables (custom properties) are used
+      for consistent theming (primary green color, accent gold). Flexbox and CSS Grid are used for
+      responsive layouts. Media queries ensure the site works correctly on mobile phones, tablets,
+      and desktop screens.
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-badge blue">Frontend</span>
+      <span class="tool-name">Vanilla JavaScript (ES6+)</span>
+    </div>
+    <div class="tool-desc">
+      Pure JavaScript (no framework like React or Vue) handles all client-side interactivity and
+      communication with the backend API. The project is organized into four JS files:
+      <br><br>
+      • <strong>storage.js</strong> — Contains all async functions that call the REST API using the
+      browser's built-in <code>fetch()</code> method (e.g., <code>getProperties()</code>,
+      <code>placeOrder()</code>, <code>userLogin()</code>).<br>
+      • <strong>main.js</strong> — Renders shared UI components like the header, footer, and property
+      cards dynamically on every page.<br>
+      • <strong>cart.js</strong> — Manages the shopping cart using <code>localStorage</code> to persist
+      cart items across page navigation.<br>
+      • <strong>admin.js</strong> — Powers the entire admin panel: loading data into tables, handling
+      forms, rendering analytics charts, and managing profile updates.
+    </div>
+  </div>
+
+  <!-- Backend -->
+  <h2 class="section-title">2. Backend Technologies</h2>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-badge">Backend</span>
+      <span class="tool-name">Node.js</span>
+    </div>
+    <div class="tool-desc">
+      Node.js is a JavaScript runtime environment that allows JavaScript to run on the server side
+      (outside the browser). It is built on Google Chrome's V8 engine and uses a non-blocking,
+      event-driven architecture, making it efficient for handling multiple simultaneous requests.
+      In this project, Node.js executes <em>server.js</em> which starts the web server, connects to
+      the database, and processes all incoming HTTP requests from the browser. The project uses
+      Node.js version 20 (specified in <em>.node-version</em>) for compatibility with all dependencies.
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-badge">Backend</span>
+      <span class="tool-name">Express.js</span>
+    </div>
+    <div class="tool-desc">
+      Express.js is a minimal and flexible web application framework for Node.js. It simplifies the
+      process of creating a web server and defining API routes. In Kigali Estates, Express.js is used
+      to define all 25+ REST API endpoints such as <code>GET /api/properties</code>,
+      <code>POST /api/orders</code>, <code>POST /api/login</code>, and <code>DELETE /api/users/:id</code>.
+      It also serves all static HTML, CSS, and JavaScript files to the browser using
+      <code>express.static()</code>. The body parser middleware (<code>express.json</code>) is configured
+      with a 5MB limit to support base64 image uploads for property photos and admin profile pictures.
+    </div>
+  </div>
+
+  <!-- Database -->
+  <h2 class="section-title">3. Database</h2>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-badge orange">Database</span>
+      <span class="tool-name">NeDB (@seald-io/nedb)</span>
+    </div>
+    <div class="tool-desc">
+      NeDB is a lightweight, embedded, pure JavaScript database that stores data in flat <em>.db</em>
+      files on the server's filesystem. It uses a MongoDB-like API with async methods such as
+      <code>findAsync()</code>, <code>insertAsync()</code>, <code>updateAsync()</code>, and
+      <code>removeAsync()</code>. Each collection is a separate file stored in the <em>data/</em> folder:
+      <br><br>
+      • <strong>properties.db</strong> — All property listings<br>
+      • <strong>agents.db</strong> — Real estate agents<br>
+      • <strong>inquiries.db</strong> — Customer inquiries and order notifications<br>
+      • <strong>orders.db</strong> — Customer orders from checkout<br>
+      • <strong>users.db</strong> — Registered customer accounts<br>
+      • <strong>settings.db</strong> — Company information and site settings<br>
+      • <strong>admin.db</strong> — Admin account with hashed password and profile photo<br>
+      <br>
+      NeDB was chosen over SQLite (<em>better-sqlite3</em>) because SQLite requires native C++ compilation
+      which failed on Node.js v24. NeDB is 100% pure JavaScript and works on any Node version without
+      any build tools.
+    </div>
+  </div>
+
+  <!-- Security -->
+  <h2 class="section-title">4. Security & Authentication</h2>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-badge red">Security</span>
+      <span class="tool-name">bcryptjs</span>
+    </div>
+    <div class="tool-desc">
+      bcryptjs is a pure JavaScript library for hashing passwords using the bcrypt algorithm.
+      When a user registers or an admin updates their password, the plain-text password is passed
+      through <code>bcrypt.hash(password, 10)</code> — the number 10 is the "salt rounds" which
+      determines how computationally expensive the hash is (higher = more secure but slower).
+      The resulting hash (a long random string) is what gets stored in the database — the actual
+      password is never saved. On login, <code>bcrypt.compare(enteredPassword, storedHash)</code>
+      is used to verify the password without ever decrypting the hash. This protects user passwords
+      even if the database is compromised.
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-badge red">Security</span>
+      <span class="tool-name">sessionStorage (Browser API)</span>
+    </div>
+    <div class="tool-desc">
+      sessionStorage is a built-in browser Web Storage API used to maintain the logged-in user's
+      session on the client side. After a successful login, the user's name, email, and role are
+      stored in sessionStorage as a JSON string. This data is read on every page to show the user's
+      name in the header and to protect admin routes. Unlike localStorage, sessionStorage is
+      automatically cleared when the browser tab is closed, which prevents unauthorized access
+      from shared computers.
+    </div>
+  </div>
+
+  <!-- DevOps -->
+  <h2 class="section-title">5. DevOps & Deployment</h2>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-badge purple">DevOps</span>
+      <span class="tool-name">Docker</span>
+    </div>
+    <div class="tool-desc">
+      Docker is a containerization platform that packages an application and all its dependencies
+      into a single portable unit called a container. The <em>Dockerfile</em> in this project uses
+      <code>node:20-alpine</code> as the base image (a lightweight Linux distribution), copies the
+      application code, installs production dependencies with <code>npm install --production</code>,
+      and starts the server with <code>node server.js</code>. The <em>docker-compose.yml</em> file
+      defines the service configuration including port mapping (3000:3000) and a named volume
+      (<em>db_data</em>) that mounts to <em>/app/data</em> inside the container, ensuring the NeDB
+      database files persist even when the container is restarted or rebuilt.
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-badge purple">DevOps</span>
+      <span class="tool-name">GitHub & GitHub Actions (CI/CD)</span>
+    </div>
+    <div class="tool-desc">
+      GitHub is the version control platform hosting the project source code. Every change is
+      committed with a descriptive message, maintaining a full history of the project's development
+      (18+ commits).
+      <br><br>
+      GitHub Actions is the CI/CD (Continuous Integration / Continuous Deployment) platform built
+      into GitHub. The pipeline is defined in <em>.github/workflows/deploy.yml</em> and triggers
+      automatically on every push to the <em>main</em> branch. It runs the following steps:
+      <br><br>
+      1. <strong>Checkout code</strong> — downloads the latest code<br>
+      2. <strong>Set up Node.js 20</strong> — installs the correct runtime<br>
+      3. <strong>Install dependencies</strong> — runs <code>npm install</code><br>
+      4. <strong>Run tests</strong> — runs <code>npm test</code><br>
+      5. <strong>Build Docker image</strong> — builds and verifies the container<br>
+      6. <strong>Deploy to Render</strong> — sends a POST request to the Render deploy hook URL
+      (stored as a GitHub secret) to trigger a live deployment
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-badge gray">Deployment</span>
+      <span class="tool-name">Render</span>
+    </div>
+    <div class="tool-desc">
+      Render is a cloud hosting platform used to deploy and serve the Kigali Estates application
+      publicly on the internet. The Node.js web service runs on Render's infrastructure with the
+      start command <code>node server.js</code>. A persistent disk (1GB) is mounted at
+      <em>/app/data</em> via <em>render.yaml</em> configuration, ensuring the NeDB database files
+      are not wiped on each deployment. The application is accessible at
+      <strong>https://kigali-estates.onrender.com</strong>. Deployments are triggered automatically
+      by the GitHub Actions CI/CD pipeline via a secure deploy hook URL.
+    </div>
+  </div>
+
+  <!-- Summary Table -->
+  <h2 class="section-title">6. Summary Table</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Tool</th>
+        <th>Category</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>HTML5</td><td>Frontend</td><td>Page structure and content</td></tr>
+      <tr><td>CSS3</td><td>Frontend</td><td>Styling, layout, responsive design</td></tr>
+      <tr><td>Vanilla JavaScript</td><td>Frontend</td><td>Interactivity, API calls, cart logic</td></tr>
+      <tr><td>Node.js</td><td>Backend</td><td>Server-side JavaScript runtime</td></tr>
+      <tr><td>Express.js</td><td>Backend</td><td>REST API routing and static file serving</td></tr>
+      <tr><td>NeDB</td><td>Database</td><td>Persistent flat-file data storage</td></tr>
+      <tr><td>bcryptjs</td><td>Security</td><td>Password hashing and verification</td></tr>
+      <tr><td>sessionStorage</td><td>Security</td><td>Client-side session management</td></tr>
+      <tr><td>Docker</td><td>DevOps</td><td>Application containerization</td></tr>
+      <tr><td>GitHub</td><td>DevOps</td><td>Version control and source code hosting</td></tr>
+      <tr><td>GitHub Actions</td><td>DevOps</td><td>CI/CD pipeline automation</td></tr>
+      <tr><td>Render</td><td>Deployment</td><td>Cloud hosting and live deployment</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    Kigali Estates — EWA408510 Final Project<br>
+    UNILAK, Faculty of Computing and Information Sciences — 2025–2026<br>
+    🔗 https://kigali-estates.onrender.com &nbsp;|&nbsp; 🔗 https://github.com/KAYITARE8/-kigali-estates
+  </div>
+
+</body>
+</html>

@@ -13,6 +13,13 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json({ limit: '5mb' }));
+app.use((req, res, next) => {
+  if (req.path === '/admin.html') {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+  }
+  next();
+});
 app.use(express.static(__dirname));
 
 function genId(prefix) {

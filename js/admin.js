@@ -516,11 +516,15 @@ function showAlert(message, type) {
 
 function handleLogout() {
   logout();
-  window.location.href = 'admin-login.html';
+  window.location.replace('admin-login.html');
 }
 
 async function initAdmin() {
   if (!checkAuth()) return;
+  // re-check auth every time page becomes visible (back button)
+  window.addEventListener('pageshow', function(e) {
+    if (!isLoggedIn()) window.location.replace('admin-login.html');
+  });
   const session = getSession();
   document.getElementById('adminUserName').textContent = session.name;
   document.getElementById('adminAvatar').textContent = session.name.charAt(0).toUpperCase();
